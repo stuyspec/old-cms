@@ -9,7 +9,6 @@ const ArticlesQuery = gql`
       id
       summary
       title
-      content
       section {
         name
       }

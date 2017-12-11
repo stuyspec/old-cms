@@ -48,14 +48,14 @@ class Article extends Component {
   }
 
   render() {
-    const { classes, article, mutate, push } = this.props;
+    const { classes, article } = this.props;
 
     if (this.state.result) {
       const { __typename, id, title } = this.state.result;
       return <p className={classes.success}>{__typename} #{id} ({title}) has been deleted.</p>;
     } else if (this.state.error) {
       const { status, error, exception } = this.state.error;
-      return <p className={classes.erro}>{status} {error}: {exception}</p>
+      return <p className={classes.error}>{status} {error}: {exception}</p>
     }
 
     return (
