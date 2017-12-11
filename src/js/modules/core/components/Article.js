@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { gql } from "apollo-client-preset";
 import injectSheet from "react-jss";
@@ -19,32 +19,59 @@ const DeleteArticleMutation = gql`
 const styles = {
   content: {
     maxWidth: "500px"
-  }
+  },
+  success: {
+    color: "green",
+  },
+  error: {
+    color: "red",
+  },
 };
 
-const Article = ({ article, classes, mutate, push }) => {
-  const handleClick = () => {
-    mutate({ variables: { id: article.id } })
+class Article extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      result: null,
+      error: null,
+    };
+  }
+
+  handleClick = () => {
+    this.props.mutate({ variables: { id: this.props.article.id } })
       .then(({ data }) => {
-        console.log(data);
+        this.setState({ result: data.deleteArticle });
       })
-      .catch(error => {
-        console.error(error);
+      .catch(err => {
+        this.setState({ error: err });
       });
-  };
-  return (
-    <span>
-      <h2>
-        {" "}{article.title}{" "}
-      </h2>
-      <div className={classes.content}>
-        {article.summary}
-      </div>
-      <button onClick={handleClick}> Delete </button>
-      <button> Edit </button>
-    </span>
-  );
-};
+  }
+
+  render() {
+    const { classes, article, mutate, push } = this.props;
+
+    if (this.state.result) {
+      const { __typename, id, title } = this.state.result;
+      return <p className={classes.success}>{__typename} #{id} ({title}) has been deleted.</p>;
+    } else if (this.state.error) {
+      const { status, error, exception } = this.state.error;
+      return <p className={classes.erro}>{status} {error}: {exception}</p>
+    }
+
+    return (
+      <span>
+        <h2>
+          {" "}{article.title}{" "}
+        </h2>
+        <div className={classes.content}>
+          {article.summary}
+        </div>
+        <button onClick={this.handleClick}> Delete </button>
+        <button> Edit </button>
+      </span>
+    );
+  }
+}
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({ push }, dispatch);
