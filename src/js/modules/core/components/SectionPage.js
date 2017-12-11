@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, withRouter } from 'react-router-dom'
 import Section from './Section'
 import SectionsList from './SectionsList'
 
@@ -13,4 +13,4 @@ const SectionPage = ({ match }) => {
   );
 };
 
-export default SectionPage;
+export default withRouter(SectionPage);

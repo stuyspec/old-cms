@@ -3,13 +3,16 @@ import injectSheet from "react-jss";
 import connect from "react-redux/lib/connect/connect";
 
 import { refreshWindowDimensions } from "./../actions";
-import ArticlesList from './ArticlesList'
+import { withRouter } from 'react-router-dom'
+import Header from './Header'
 
 const styles = {
     appContainer: {
       display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
-      alignItems: "center"
+      alignItems: "center",
+      padding: "50px"
     }
 }
 class MainApp extends PureComponent {
@@ -27,7 +30,8 @@ class MainApp extends PureComponent {
 
     return (
       <div className={classes.appContainer}>
-          <ArticlesList />
+        <Header />
+        { this.props.children }
       </div>
     );
   }
@@ -46,4 +50,4 @@ const VisibleMainApp = connect(
   })
 )(injectSheet(styles)(MainApp));
 
-export default VisibleMainApp;
+export default withRouter(VisibleMainApp);
