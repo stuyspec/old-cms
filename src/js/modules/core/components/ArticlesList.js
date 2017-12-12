@@ -1,21 +1,7 @@
 import React from "react";
-import { gql } from "apollo-client-preset";
 import { graphql } from "react-apollo";
-import Article from './Article'
-
-const ArticlesQuery = gql`
-  query ArticlesQuery {
-    allArticles {
-      id
-      summary
-      title
-      section {
-        name
-      }
-    }
-  }
-`;
-
+import ArticlePreview from './ArticlePreview'
+import { ArticlesQuery } from '../queries'
 
 const ArticlesList = ({ data: { allArticles, loading } }) => {
   if (loading) {
@@ -25,7 +11,7 @@ const ArticlesList = ({ data: { allArticles, loading } }) => {
     <div>
       <h2> Articles </h2>
       {allArticles.map(article =>
-        <Article article={article} key={article.id} />
+        <ArticlePreview article={article} key={article.id} />
       )}
     </div>
   );

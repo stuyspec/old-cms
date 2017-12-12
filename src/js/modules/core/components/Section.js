@@ -2,42 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { graphql } from "react-apollo";
-import { gql } from "apollo-client-preset";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
-import Article from "./Article";
+import ArticlePreview from "./ArticlePreview";
 import injectSheet from "react-jss";
-
-const SectionQuery = gql`
-  query SectionQuery($slug: String!) {
-    sectionBySlug(slug: $slug) {
-      id
-      name
-      subsections {
-        id
-        name
-        slug
-      }
-      articles {
-        id
-        summary
-        title
-      }
-      parent_section {
-        slug
-      }
-    }
-  }
-`;
-
-const DeleteSectionMutation = gql`
-  mutation DeleteSectionMutation($id: ID!) {
-    deleteSection(id: $id) {
-      id
-      name
-    }
-  }
-`;
+import { DeleteSection } from './mutations'
+import { SectionQuery, SectionsQuery } from '../queries'
 
 const styles = {
   sectionsLink: {
@@ -57,10 +27,18 @@ const Section = ({
   classes,
   mutate,
   pathname,
+  push,
   data: { loading, sectionBySlug }
 }) => {
   const handleClick = () => {
-    mutate({ variables: { id: sectionBySlug.id } })
+    mutate({
+      variables: { id: sectionBySlug.id },
+      refetchQueries: [
+        {
+          query: SectionsQuery
+        }
+      ]
+    })
       .then(() => {
         push("/sections");
       })
@@ -98,7 +76,7 @@ const Section = ({
         )}
       </ul>
       <div>
-        {sectionBySlug.articles.map(article => <Article article={article} />)}
+        {sectionBySlug.articles.map(article => <ArticlePreview article={article} />)}
       </div>
     </div>
   );
@@ -114,7 +92,7 @@ const mapDispatchToProps = dispatch => {
 
 const StyledSection = injectSheet(styles)(Section);
 
-export default graphql(DeleteSectionMutation)(
+export default graphql(DeleteSection)(
   graphql(SectionQuery, {
     options: ({ slug }) => ({ variables: { slug } })
   })(connect(mapStateToProps, mapDispatchToProps)(StyledSection))

@@ -2,16 +2,7 @@ import React from "react";
 import { gql } from "apollo-client-preset";
 import { graphql } from "react-apollo";
 import { Link } from "react-router-dom";
-
-const SectionsQuery = gql`
-  query SectionsQuery {
-    topLevelSections {
-      id
-      name
-      slug
-    }
-  }
-`;
+import { SectionsQuery } from '../queries'
 
 const SectionsList = ({ data: { loading, topLevelSections } }) => {
   if (loading) {

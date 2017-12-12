@@ -14,7 +14,7 @@ const styles = {
     display: "flex",
     flexDirection: "row",
     alignItems: "baseline",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     flex: "1 0 auto",
     flexWrap: "wrap"
   }

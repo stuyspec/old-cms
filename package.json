@@ -71,6 +71,7 @@
     "material-ui": "^0.20.0",
     "react-apollo": "^2.0.4",
     "redux-auth": "0.0.5-beta5",
+    "redux-form": "^7.2.0",
     "yargs": "^8.0.2"
   }
 }

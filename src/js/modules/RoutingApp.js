@@ -11,6 +11,8 @@ import { ApolloProvider } from "react-apollo";
 import { Switch } from "react-router-dom";
 import SectionPage from "./core/components/SectionPage";
 import ArticlesList from "./core/components/ArticlesList";
+import ArticleForm from "./core/components/ArticleForm";
+import ArticlePage from './core/components/ArticlePage'
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: "http://localhost:3000/graphql" }),
@@ -24,7 +26,9 @@ class RoutingApp extends Component {
           <ConnectedRouter history={appHistory}>
             <MainApp>
               <Switch>
+                <Route path="/articles/edit/:id" component={ArticleForm} />
                 <Route exact path="/articles" component={ArticlesList} />
+                <Route path="/articles/:slug" component={ArticlePage} />
                 <Route path="/sections" component={SectionPage} />
                 <Route exact path="/sign_up" component={SignUpPage} />
               </Switch>
