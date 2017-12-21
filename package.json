@@ -69,8 +69,9 @@
     "graphql": "^0.11.7",
     "graphql-tag": "^2.6.0",
     "material-ui": "^0.20.0",
+    "qs": "^6.5.1",
     "react-apollo": "^2.0.4",
-    "redux-auth": "0.0.5-beta5",
+    "react-icon-base": "^2.1.2",
     "redux-form": "^7.2.0",
     "yargs": "^8.0.2"
   }

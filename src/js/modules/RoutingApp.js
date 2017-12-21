@@ -10,9 +10,10 @@ import { ApolloClient, HttpLink, InMemoryCache } from "apollo-client-preset";
 import { ApolloProvider } from "react-apollo";
 import { Switch } from "react-router-dom";
 import SectionPage from "./core/components/SectionPage";
-import ArticlesList from "./core/components/ArticlesList";
+import ArticlesPage from "./core/components/ArticlesPage";
 import ArticleForm from "./core/components/ArticleForm";
 import ArticlePage from './core/components/ArticlePage'
+import SearchResultsPage from './core/components/SearchResultsPage'
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: "http://localhost:3000/graphql" }),
@@ -26,8 +27,9 @@ class RoutingApp extends Component {
           <ConnectedRouter history={appHistory}>
             <MainApp>
               <Switch>
-                <Route path="/articles/edit/:id" component={ArticleForm} />
-                <Route exact path="/articles" component={ArticlesList} />
+                <Route path="/articles/new" component={ArticleForm} />
+                <Route path="/search/:query" component={SearchResultsPage} />
+                <Route exact path="/articles" component={ArticlesPage} />
                 <Route path="/articles/:slug" component={ArticlePage} />
                 <Route path="/sections" component={SectionPage} />
                 <Route exact path="/sign_up" component={SignUpPage} />

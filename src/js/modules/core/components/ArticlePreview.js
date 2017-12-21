@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { Link } from "react-router-dom";
+import { ArticlesQuery } from "../queries";
 
 const DeleteArticleMutation = gql`
   mutation DeleteArticleMutation($id: ID!) {
@@ -20,12 +21,6 @@ const styles = {
   content: {
     maxWidth: "500px"
   },
-  success: {
-    color: "green"
-  },
-  error: {
-    color: "red"
-  },
   expand: {
     color: "blue"
   }
@@ -35,54 +30,42 @@ class ArticlePreview extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      result: null,
-      error: null,
       isExpanded: false
     };
   }
 
   handleClick = () => {
-    this.props
-      .mutate({ variables: { id: this.props.article.id } })
+    const { mutate, displayResult, displayError, article } = this.props;
+    mutate({
+      variables: { id: article.id },
+      refetchQueries: [
+        {
+          query: ArticlesQuery
+        }
+      ]
+    })
       .then(({ data }) => {
-        this.setState({ result: data.deleteArticle });
+        displayResult(data.deleteArticle);
       })
       .catch(err => {
-        this.setState({ error: err });
+        displayError(err);
       });
   };
 
   toggleExpand = event => {
     event.preventDefault();
-
     this.setState({ isExpanded: !this.state.isExpanded });
   };
 
   render() {
     const { classes, article } = this.props;
-    const { isExpanded, error, result } = this.state;
-    if (result) {
-      const { __typename, id, title } = result;
-      return (
-        <p className={classes.success}>
-          {__typename} #{id} ({title}) has been deleted.
-        </p>
-      );
-    } else if (error) {
-      const { status, error, exception } = error;
-      return (
-        <p className={classes.error}>
-          {status} {error}: {exception}
-        </p>
-      );
-    }
-
+    const { isExpanded } = this.state;
     return (
       <span>
         <Link to={`/articles/${article.slug}`}>
-        <h2>
-          {" "}{article.title}{" "}
-        </h2>
+          <h2>
+            {" "}{article.title}{" "}
+          </h2>
         </Link>
 
         <div className={classes.content}>

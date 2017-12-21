@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import ArticlePreview from "./ArticlePreview";
 import injectSheet from "react-jss";
-import { DeleteSection } from './mutations'
+import { DeleteSection } from '../mutations'
 import { SectionQuery, SectionsQuery } from '../queries'
 
 const styles = {

@@ -63,4 +63,20 @@ query ArticleQuery($slug: String!) {
   }
 }  
 `
+export const SearchArticlesQuery = gql`
+query SearchArticlesQuery($query: String!) {
+  searchArticles(query: $query) {
+    searchable {
+      id
+      summary
+      content
+      slug
+      title
+      section {
+        name
+      }
+    }
+  }
+}
+`
 

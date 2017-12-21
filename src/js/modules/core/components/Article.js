@@ -2,7 +2,7 @@ import React from "react";
 import injectSheet from "react-jss";
 import { ArticlesQuery } from "../queries";
 import { graphql } from "react-apollo";
-import { DeleteArticle } from "./mutations";
+import { DeleteArticle } from "../mutations";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'
 import { push } from "react-router-redux"
