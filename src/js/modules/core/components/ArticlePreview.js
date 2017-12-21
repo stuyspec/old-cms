@@ -77,7 +77,7 @@ class ArticlePreview extends Component {
           {isExpanded ? "Close" : "Expand"}
         </a>
         <button onClick={this.handleClick}> Delete </button>
-        <Link to={`/articles/edit/${article.id}`}>
+        <Link to={`/articles/${article.slug}/edit`}>
           <button>Edit</button>
         </Link>
       </span>

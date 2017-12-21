@@ -14,6 +14,7 @@ import ArticlesPage from "./core/components/ArticlesPage";
 import ArticleForm from "./core/components/ArticleForm";
 import ArticlePage from './core/components/ArticlePage'
 import SearchResultsPage from './core/components/SearchResultsPage'
+import EditArticlePage from './core/components/EditArticlePage'
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: "http://localhost:3000/graphql" }),
@@ -30,6 +31,7 @@ class RoutingApp extends Component {
                 <Route path="/articles/new" component={ArticleForm} />
                 <Route path="/search/:query" component={SearchResultsPage} />
                 <Route exact path="/articles" component={ArticlesPage} />
+                <Route path="/articles/:slug/edit" component={EditArticlePage} />
                 <Route path="/articles/:slug" component={ArticlePage} />
                 <Route path="/sections" component={SectionPage} />
                 <Route exact path="/sign_up" component={SignUpPage} />

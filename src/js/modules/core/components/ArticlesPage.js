@@ -3,7 +3,6 @@ import { graphql } from "react-apollo";
 import { ArticlesQuery } from "../queries";
 import ArticlesList from "./ArticlesList";
 import SearchForm from "./SearchForm";
-import qs from "qs";
 import { push } from "react-router-redux";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'

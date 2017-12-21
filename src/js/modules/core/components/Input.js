@@ -1,13 +1,32 @@
 import React from "react";
+import injectSheet from "react-jss";
 
-const Input = ({ input, label, type, meta: { touched, error, warning } }) => {
+const styles = {
+  input: {
+    padding: "20px",
+    fontSize: "1.1em"
+  },
+  textArea: {
+    padding: "4px",
+    fontSize: "1.25em"
+  }
+};
+
+const Input = ({
+  classes,
+  input,
+  label,
+  type,
+  meta: { touched, error, warning }
+}) => {
   return (
-    <div>
+    <div className={classes.input}>
       <label>
         {label}
       </label>
       <div>
         <input
+          className={classes.textArea}
           style={{ width: "100%" }}
           {...input}
           placeholder={label}
@@ -27,4 +46,4 @@ const Input = ({ input, label, type, meta: { touched, error, warning } }) => {
   );
 };
 
-export default Input
+export default injectSheet(styles)(Input);
