@@ -1,7 +1,7 @@
 import React from 'react'
 import Article from './Article'
 import { graphql } from 'react-apollo'
-import { ArticleQuery } from '../queries'
+import { ArticleBySlugQuery } from '../queries'
 
 const ArticlePage = ({ data: { loading, articleBySlug }}) => {
   if (loading) {
@@ -12,6 +12,6 @@ const ArticlePage = ({ data: { loading, articleBySlug }}) => {
   )
 }
 
-export default graphql(ArticleQuery, {
+export default graphql(ArticleBySlugQuery, {
   options: ({ match }) => ({ variables: { slug: match.params.slug }})
 })(ArticlePage)

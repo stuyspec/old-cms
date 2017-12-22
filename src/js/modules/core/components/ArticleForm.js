@@ -41,7 +41,7 @@ const ArticleForm = ({
     return <div> Loading... </div>
   }
   const users = allUsers.map(user => ({
-    value: user.id,
+    value: parseInt(user.id),
     label: user.email
   }))
 

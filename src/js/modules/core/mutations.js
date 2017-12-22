@@ -20,16 +20,47 @@ export const DeleteArticle = gql`
   }
 `;
 
+
 export const CreateArticle = gql`
   mutation CreateArticle(
              $content: String!,
              $title: String!,
-             $section_id: Int!,
-             $contributors: [String]!
-             $volume: Int!,
-             $issue: Int!
+             $section_id: Int,
+             $contributors: [Int]
            ) {
-    createArticle(content: $content, title: $title, section_id: $section_id) {
+    createArticle(
+      content: $content,
+      title: $title,
+      section_id: $section_id,
+      contributors: $contributors
+    ) {
+      title
+      section {
+        name
+      }
+    }
+  }
+`
+
+export const UpdateArticle = gql`
+  mutation UpdateArticle(
+    $id: ID!,       
+    $content: String!,
+    $title: String!,
+    $section_id: Int!,
+    $contributors: [Int]!,
+    $volume: Int,
+    $issue: Int
+  ) {
+    updateArticle(
+      id: $id,
+      content: $content,
+      title: $title,
+      section_id: $section_id,
+      contributors: $contributors,
+      volume: $volume,
+      issue: $issue
+    ) {
       title
       section {
         name

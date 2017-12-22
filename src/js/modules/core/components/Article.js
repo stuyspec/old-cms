@@ -14,7 +14,7 @@ const styles = {
 };
 
 const Article = ({ article, classes, mutate, push }) => {
-  const handleClick = () => {
+  const handleDelete = () => {
     mutate({
       variables: { id: article.id },
       refetchQueries: [
@@ -23,19 +23,24 @@ const Article = ({ article, classes, mutate, push }) => {
         }
       ]
     })
-      .then(() => {
-        push("/articles");
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    .then(() => {
+      push("/articles");
+    })
+    .catch(err => {
+      console.error(err);
+    });
   };
+
+  const handleEdit = () => {
+    push(`/articles/${article.slug}/edit`);
+  }
   return (
     <div>
-      <button onClick={handleClick}> Delete </button>
       <h1>
         {" "}{article.title}{" "}
       </h1>
+      <button onClick={handleDelete}> Delete </button>
+      <button onClick={handleEdit}> Edit </button>
       <div
         className={classes.content}
         dangerouslySetInnerHTML={{ __html: article.content }}

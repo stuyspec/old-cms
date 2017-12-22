@@ -43,14 +43,15 @@ export const ArticlesQuery = gql`
       slug
       title
       section {
+        id
         name
       }
     }
   }
 `;
 
-export const ArticleQuery = gql`
-query ArticleQuery($slug: String!) {
+export const ArticleBySlugQuery = gql`
+query ArticleBySlugQuery($slug: String!) {
   articleBySlug(slug: $slug) {
     id
     title
@@ -60,10 +61,35 @@ query ArticleQuery($slug: String!) {
       first_name
       last_name
     }
+    slug
+    section {
+      id
+    }
     summary
     content
   }
-}  
+}
+`
+
+export const ArticleByIDQuery = gql`
+query ArticleByIDQuery($id: ID!) {
+  articleByID(id: $id) {
+    id
+    title
+    slug
+    contributors {
+      id
+      email
+      first_name
+      last_name
+    }
+    section {
+      id
+    }
+    summary
+    content
+  }
+}
 `
 export const SearchArticlesQuery = gql`
 query SearchArticlesQuery($query: String!) {
@@ -75,6 +101,7 @@ query SearchArticlesQuery($query: String!) {
       slug
       title
       section {
+        id
         name
       }
     }
