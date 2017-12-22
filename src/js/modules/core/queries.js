@@ -55,6 +55,8 @@ query ArticleQuery($slug: String!) {
     id
     title
     contributors {
+      id
+      email
       first_name
       last_name
     }
@@ -80,3 +82,11 @@ query SearchArticlesQuery($query: String!) {
 }
 `
 
+export const UsersQuery = gql`
+query UsersQuery {
+  allUsers {
+    id
+    email
+  }
+}
+`

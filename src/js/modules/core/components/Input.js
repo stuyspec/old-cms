@@ -4,11 +4,12 @@ import injectSheet from "react-jss";
 const styles = {
   input: {
     padding: "20px",
+    maxWidth: "500px",
     fontSize: "1.1em"
   },
   textArea: {
     padding: "4px",
-    fontSize: "1.25em"
+    fontSize: "1.1em"
   }
 };
 

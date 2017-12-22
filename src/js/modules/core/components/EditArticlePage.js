@@ -1,16 +1,28 @@
-import React from 'react'
-import { graphql } from 'react-apollo'
-import { ArticleQuery } from '../queries'
-import ArticleForm from './ArticleForm'
-
+import React from "react";
+import { graphql } from "react-apollo";
+import { ArticleQuery } from "../queries";
+import ArticleForm from "./ArticleForm";
 
 const EditArticlePage = ({ data: { loading, articleBySlug } }) => {
-  if (loading) {
-    return <div> Loading... </div>
+  const handleSubmit = values => {
+    console.log(values);
   }
-  return(<ArticleForm initialValues={articleBySlug} />)
-}
+  if (loading) {
+    return <div> Loading... </div>;
+  }
+  const contributors = articleBySlug.contributors.map(user => ({
+    value: user.id,
+    label: user.email
+  }))
+  const article = {
+    ...articleBySlug,
+    contributors
+  }
+  return (
+    <ArticleForm initialValues={article} onSubmit={handleSubmit} />
+  );
+};
 
 export default graphql(ArticleQuery, {
-  options: ({ match }) => ({ variables: { slug: match.params.slug }})
-})(EditArticlePage)
+  options: ({ match }) => ({ variables: { slug: match.params.slug } })
+})(EditArticlePage);

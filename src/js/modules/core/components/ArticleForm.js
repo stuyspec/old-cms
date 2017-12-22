@@ -1,16 +1,23 @@
 import React from "react";
-import { Field, formValueSelector, reduxForm } from 'redux-form'
+import { Field, formValueSelector, reduxForm } from "redux-form";
 import Input from "./Input";
-import injectSheet from "react-jss"
-import { connect } from 'react-redux'
+import injectSheet from "react-jss";
+import { connect } from "react-redux";
+import ContributorsInput from './ContributorsInput'
+import { UsersQuery } from '../queries'
+import { graphql } from 'react-apollo'
 
 const styles = {
+  contributors: {
+    maxWidth: "500px",
+    padding: "20px"
+  },
   content: {
     padding: "5px",
     margin: "20px",
     fontSize: "1.05em"
-  },
-}
+  }
+};
 const validate = formValues => {
   const errors = {};
   if (!formValues.title) {
@@ -22,11 +29,38 @@ const validate = formValues => {
   return errors;
 };
 
-const ArticleForm = ({ classes, handleSubmit, submitting, status, content }) => {
+const ArticleForm = ({
+  classes,
+  data: { loading, allUsers },
+  handleSubmit,
+  submitting,
+  status,
+  content,
+}) => {
+  if (loading) {
+    return <div> Loading... </div>
+  }
+  const users = allUsers.map(user => ({
+    value: user.id,
+    label: user.email
+  }))
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Field name="title" type="text" label="Title" component={Input} />
+        <Field
+          name="title"
+          type="text"
+          label="Title"
+          component={Input}
+        />
+        <Field
+          className={classes.contributors}
+          multi={true}
+          name="contributors"
+          component={ContributorsInput}
+          options={users}
+        />
         <Field
           className={classes.content}
           name="content"
@@ -35,7 +69,8 @@ const ArticleForm = ({ classes, handleSubmit, submitting, status, content }) => 
           component="textarea"
           rows="30"
           cols="80"
-        /> <br/>
+        />{" "}
+        <br />
         <button type="submit" disabled={submitting}>
           {" "}Submit{" "}
         </button>
@@ -47,7 +82,7 @@ const ArticleForm = ({ classes, handleSubmit, submitting, status, content }) => 
           </p>
         )}
 
-        <div dangerouslySetInnerHTML={{__html: content}} />
+      <div dangerouslySetInnerHTML={{ __html: content }} />
     </div>
   );
 };
@@ -56,10 +91,12 @@ const ConnectedArticleForm = reduxForm({
   validate
 })(injectSheet(styles)(ArticleForm));
 
-const selector = formValueSelector('editArticle')
+const selector = formValueSelector("editArticle");
 
 const mapStateToProps = state => ({
   content: selector(state, "content")
-})
+});
 
-export default connect(mapStateToProps)(ConnectedArticleForm);
+export default connect(mapStateToProps)(graphql(
+UsersQuery
+)(ConnectedArticleForm));
