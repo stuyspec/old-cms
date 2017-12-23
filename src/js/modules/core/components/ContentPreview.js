@@ -5,7 +5,7 @@ import injectSheet from "react-jss";
 
 const styles = {
   contentPreview: {
-    backgroundColor: "lightgray",
+    backgroundColor: "#ededed",
     maxWidth: "400px",
     margin: "20px",
     padding: "10px",
@@ -15,8 +15,11 @@ const styles = {
 
 const ContentPreview = ({ classes, content }) => {
   return (
-    <div className={classes.contentPreview}>
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+    <div>
+      {content &&
+        <div className={classes.contentPreview}>
+          <div dangerouslySetInnerHTML={{ __html: content }} />
+        </div>}
     </div>
   );
 };

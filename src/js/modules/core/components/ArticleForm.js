@@ -21,7 +21,25 @@ const styles = {
     margin: "20px",
     "-webkit-appearance": "menulist-button",
     height: "50px",
-    fontSize: "1.05em"
+    fontSize: "1.05em",
+    maxWidth: "500px"
+  },
+  articleForm: {
+    width: "100%",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start"
+  },
+  fields: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  submit: {
+    maxWidth: "80px",
+    padding: "8px",
+    fontSize: "1.25em",
+    margin: "15px",
+    backgroundColor: "white"
   }
 };
 const validate = formValues => {
@@ -32,10 +50,13 @@ const validate = formValues => {
   if (!formValues.content) {
     errors.content = "Required";
   }
+  if (!formValues.contributors) {
+    errors.contributors = "Required";
+  }
   return errors;
 };
 
-let ArticleForm = ({
+const ArticleForm = ({
   classes,
   data: { loading, allUsers },
   handleSubmit,
@@ -52,42 +73,48 @@ let ArticleForm = ({
   }));
 
   return (
-    <div>
+    <div className={classes.articleForm}>
       <form onSubmit={handleSubmit}>
-        <Field name="title" type="text" label="Title" component={Input} />
-        <Field
-          className={classes.section}
-          name="section"
-          label="Section"
-          component="select"
-        >
-          {sections.map(section =>
-            <option value={section.id} key={section.id}>
-              {" "}{section.name}{" "}
-            </option>
-          )}
-        </Field>
-        <Field
-          className={classes.contributors}
-          multi={true}
-          name="contributors"
-          label="Contributors"
-          component={ContributorsInput}
-          options={users}
-        />
-        <Field
-          className={classes.content}
-          name="content"
-          type="text"
-          label="Content"
-          component="textarea"
-          rows="30"
-          cols="80"
-        />{" "}
-        <br />
-        <button type="submit" disabled={submitting}>
-          {" "}Submit{" "}
-        </button>
+        <div className={classes.fields}>
+          <Field name="title" type="text" label="Title" component={Input} />
+          <Field
+            className={classes.section}
+            name="section"
+            label="Section"
+            component="select"
+          >
+            {sections.map(section =>
+              <option value={section.id} key={section.id}>
+                {" "}{section.name}{" "}
+              </option>
+            )}
+          </Field>
+          <Field
+            className={classes.contributors}
+            multi={true}
+            name="contributors"
+            label="Contributors"
+            component={ContributorsInput}
+            options={users}
+          />
+          <Field
+            className={classes.content}
+            name="content"
+            type="text"
+            component="textarea"
+            rows="30"
+            cols="80"
+          />
+          <br />
+          <button
+            className={classes.submit}
+            type="submit"
+            disabled={submitting}
+          >
+            {" "}Submit{" "}
+          </button>
+          <ContentPreview />
+        </div>
       </form>
       {status &&
         status.errors.map((error, index) =>
@@ -95,7 +122,6 @@ let ArticleForm = ({
             {" "}{error}{" "}
           </p>
         )}
-      <ContentPreview />
     </div>
   );
 };

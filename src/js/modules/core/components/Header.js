@@ -1,41 +1,57 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import injectSheet from "react-jss";
+import { Component } from "react/lib/ReactBaseClasses";
+import Dropdown from "./Dropdown";
 
 const styles = {
-  link: {
-    color: "black",
-    paddingLeft: "5px",
-    "&:hover": {
-      textDecoration: "underline"
-    }
-  },
-  routes: {
+  links: {
     display: "flex",
     flexDirection: "row",
     alignItems: "baseline",
     justifyContent: "space-between",
     flex: "1 0 auto",
     flexWrap: "wrap"
+  },
+  link: {
+    color: "black",
+  },
+  masthead: {
+    color: "black"
   }
 };
 
 const Header = ({ classes }) => {
   return (
     <div>
-      <Link className={classes.link} to="/">
+      <Link className={classes.masthead} to="/">
         {" "}<h1> Stuyvesant Spectator CMS </h1>{" "}
       </Link>
-      <div className={classes.routes}>
-        <Link to="/articles/new">
-          {" "}<h2 className={classes.link}> Create </h2>{" "}
-        </Link>
-        <Link to="/sections">
-          {" "}<h2 className={classes.link}> Sections </h2>{" "}
-        </Link>
-        <Link to="/articles">
-          {" "}<h2 className={classes.link}> Articles </h2>{" "}
-        </Link>
+      <div className={classes.links}>
+        <Dropdown title="Create">
+          <div className={classes.link}>
+            <Link to="/articles/new">
+              {" "}<h3> Article </h3>{" "}
+            </Link>
+          </div>
+          <div className={classes.link}>
+            <Link to="/sections/new">
+              {" "}<h3> Section </h3>{" "}
+            </Link>
+          </div>
+        </Dropdown>
+        <Dropdown title="Find">
+          <div className={classes.link}>
+            <Link to="/articles">
+              {" "}<h3> Articles </h3>{" "}
+            </Link>
+          </div>
+          <div className={classes.link}>
+            <Link to="/sections">
+              {" "}<h3> Section </h3>
+            </Link>
+          </div>
+        </Dropdown>
       </div>
     </div>
   );
