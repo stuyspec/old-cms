@@ -1,6 +1,6 @@
 import React from "react";
 import { graphql } from "react-apollo";
-import { ArticlesQuery } from "../queries";
+import { AllArticlesQuery } from "../queries";
 import ArticlesList from "./ArticlesList";
 import SearchForm from "./SearchForm";
 import { push } from "react-router-redux";
@@ -25,5 +25,5 @@ const ArticlesPage = ({ push, data: { loading, allArticles } }) => {
 const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
 
 export default connect(null, mapDispatchToProps)(
-  graphql(ArticlesQuery)(ArticlesPage)
+  graphql(AllArticlesQuery)(ArticlesPage)
 );

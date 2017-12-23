@@ -19,11 +19,12 @@ const EditArticlePage = ({
     const contributors = values.contributors.map(
       contributor => contributor.value
     );
+    // Actually have to convert to a real int cause GraphQL...
     mutate({
       variables: {
         ...values,
+        section_id: parseInt(values.section),
         id: articleBySlug.id,
-        section_id: parseInt(articleBySlug.section.id),
         contributors
       },
       refetchQueries: [
@@ -33,12 +34,12 @@ const EditArticlePage = ({
         }
       ]
     })
-      .then(() => {
-        push("/articles");
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    .then(() => {
+      push("/articles");
+    })
+    .catch(err => {
+      console.error(err);
+    });
   };
   if (loading) {
     return <div> Loading... </div>;

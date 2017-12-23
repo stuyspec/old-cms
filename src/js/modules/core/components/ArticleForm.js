@@ -1,11 +1,11 @@
 import React from "react";
-import { Field, formValueSelector, reduxForm } from "redux-form";
+import { Field, reduxForm } from "redux-form";
 import Input from "./Input";
 import injectSheet from "react-jss";
-import { connect } from "react-redux";
-import ContributorsInput from './ContributorsInput'
-import { UsersQuery } from '../queries'
-import { graphql } from 'react-apollo'
+import ContributorsInput from "./ContributorsInput";
+import { AllUsersQuery } from "../queries";
+import { graphql, compose } from "react-apollo";
+import ContentPreview from "./ContentPreview";
 
 const styles = {
   contributors: {
@@ -15,6 +15,12 @@ const styles = {
   content: {
     padding: "5px",
     margin: "20px",
+    fontSize: "1.05em"
+  },
+  section: {
+    margin: "20px",
+    "-webkit-appearance": "menulist-button",
+    height: "50px",
     fontSize: "1.05em"
   }
 };
@@ -29,35 +35,43 @@ const validate = formValues => {
   return errors;
 };
 
-const ArticleForm = ({
+let ArticleForm = ({
   classes,
   data: { loading, allUsers },
   handleSubmit,
   submitting,
   status,
-  content,
+  sections
 }) => {
   if (loading) {
-    return <div> Loading... </div>
+    return <div> Loading... </div>;
   }
   const users = allUsers.map(user => ({
     value: parseInt(user.id),
     label: user.email
-  }))
+  }));
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <Field name="title" type="text" label="Title" component={Input} />
         <Field
-          name="title"
-          type="text"
-          label="Title"
-          component={Input}
-        />
+          className={classes.section}
+          name="section"
+          label="Section"
+          component="select"
+        >
+          {sections.map(section =>
+            <option value={section.id} key={section.id}>
+              {" "}{section.name}{" "}
+            </option>
+          )}
+        </Field>
         <Field
           className={classes.contributors}
           multi={true}
           name="contributors"
+          label="Contributors"
           component={ContributorsInput}
           options={users}
         />
@@ -81,22 +95,16 @@ const ArticleForm = ({
             {" "}{error}{" "}
           </p>
         )}
-
-      <div dangerouslySetInnerHTML={{ __html: content }} />
+      <ContentPreview />
     </div>
   );
 };
-const ConnectedArticleForm = reduxForm({
-  form: "editArticle",
-  validate
-})(injectSheet(styles)(ArticleForm));
 
-const selector = formValueSelector("editArticle");
-
-const mapStateToProps = state => ({
-  content: selector(state, "content")
-});
-
-export default connect(mapStateToProps)(graphql(
-UsersQuery
-)(ConnectedArticleForm));
+export default compose(
+  graphql(AllUsersQuery),
+  injectSheet(styles),
+  reduxForm({
+    form: "article",
+    validate
+  })
+)(ArticleForm);

@@ -2,7 +2,7 @@ import React from "react";
 import { gql } from "apollo-client-preset";
 import { graphql } from "react-apollo";
 import { Link } from "react-router-dom";
-import { SectionsQuery } from '../queries'
+import { TopLevelSectionsQuery } from '../queries'
 
 const SectionsList = ({ data: { loading, topLevelSections } }) => {
   if (loading) {
@@ -13,7 +13,7 @@ const SectionsList = ({ data: { loading, topLevelSections } }) => {
       <h2> Sections </h2>
       <ul>
         {topLevelSections.map(section =>
-          <li>
+          <li key={section.id}>
             {" "}<Link to={`/sections/${section.slug}`}> {section.name} </Link>
           </li>
         )}
@@ -22,4 +22,4 @@ const SectionsList = ({ data: { loading, topLevelSections } }) => {
   );
 };
 
-export default graphql(SectionsQuery)(SectionsList);
+export default graphql(TopLevelSectionsQuery)(SectionsList);

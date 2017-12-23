@@ -1,11 +1,12 @@
 import React from "react";
 import injectSheet from "react-jss";
-import { ArticlesQuery } from "../queries";
+import { AllArticlesQuery } from "../queries";
 import { graphql } from "react-apollo";
 import { DeleteArticle } from "../mutations";
 import { connect } from "react-redux";
-import { bindActionCreators } from 'redux'
-import { push } from "react-router-redux"
+import { bindActionCreators } from "redux";
+import { push } from "react-router-redux";
+import { Link } from 'react-router-dom'
 
 const styles = {
   content: {
@@ -19,28 +20,41 @@ const Article = ({ article, classes, mutate, push }) => {
       variables: { id: article.id },
       refetchQueries: [
         {
-          query: ArticlesQuery
+          query: AllArticlesQuery
         }
       ]
     })
-    .then(() => {
-      push("/articles");
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      .then(() => {
+        push("/articles");
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   const handleEdit = () => {
     push(`/articles/${article.slug}/edit`);
-  }
+  };
   return (
     <div>
       <h1>
         {" "}{article.title}{" "}
       </h1>
-      <button onClick={handleDelete}> Delete </button>
-      <button onClick={handleEdit}> Edit </button>
+      <span>
+        <button onClick={handleDelete}> Delete </button>
+        <button onClick={handleEdit}> Edit </button>
+      </span>
+      <h2>
+        {" "}{article.section.name}{" "}
+      </h2>
+      <h3>
+        {article.contributors.map(user =>
+          <Link to={`/users/${user.slug}`} key={user.id}>
+            {" "}{user.first_name} {user.last_name}{" "}
+          </Link>
+        )}
+      </h3>
+
       <div
         className={classes.content}
         dangerouslySetInnerHTML={{ __html: article.content }}

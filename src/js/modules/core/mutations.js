@@ -25,19 +25,20 @@ export const CreateArticle = gql`
   mutation CreateArticle(
              $content: String!,
              $title: String!,
-             $section_id: Int,
-             $contributors: [Int]
+             $section_id: Int!,
+             $contributors: [Int]!,
+             $volume: Int,
+             $issue: Int
            ) {
     createArticle(
       content: $content,
       title: $title,
       section_id: $section_id,
-      contributors: $contributors
+      contributors: $contributors,
+      volume: $volume,
+      issue: $issue
     ) {
-      title
-      section {
-        name
-      }
+      slug
     }
   }
 `

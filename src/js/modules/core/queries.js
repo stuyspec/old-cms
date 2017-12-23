@@ -24,8 +24,8 @@ export const SectionQuery = gql`
   }
 `;
 
-export const SectionsQuery = gql`
-  query SectionsQuery {
+export const TopLevelSectionsQuery = gql`
+  query TopLevelSectionsQuery {
     topLevelSections {
       id
       name
@@ -34,7 +34,16 @@ export const SectionsQuery = gql`
   }
 `;
 
-export const ArticlesQuery = gql`
+export const AllSectionsQuery = gql`
+  query AllSectionsQuery {
+    allSections {
+      id
+      name
+    }
+  }
+`
+
+export const AllArticlesQuery = gql`
   query ArticlesQuery {
     allArticles {
       id
@@ -60,10 +69,12 @@ query ArticleBySlugQuery($slug: String!) {
       email
       first_name
       last_name
+      slug
     }
     slug
     section {
       id
+      name
     }
     summary
     content
@@ -109,8 +120,8 @@ query SearchArticlesQuery($query: String!) {
 }
 `
 
-export const UsersQuery = gql`
-query UsersQuery {
+export const AllUsersQuery = gql`
+query AllUsersQuery {
   allUsers {
     id
     email

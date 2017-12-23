@@ -27,6 +27,9 @@ const Header = ({ classes }) => {
         {" "}<h1> Stuyvesant Spectator CMS </h1>{" "}
       </Link>
       <div className={classes.routes}>
+        <Link to="/articles/new">
+          {" "}<h2 className={classes.link}> Create </h2>{" "}
+        </Link>
         <Link to="/sections">
           {" "}<h2 className={classes.link}> Sections </h2>{" "}
         </Link>

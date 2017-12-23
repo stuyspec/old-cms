@@ -7,7 +7,7 @@ import { push } from "react-router-redux";
 import ArticlePreview from "./ArticlePreview";
 import injectSheet from "react-jss";
 import { DeleteSection } from '../mutations'
-import { SectionQuery, SectionsQuery } from '../queries'
+import { SectionQuery, TopLevelSectionsQuery } from '../queries'
 
 const styles = {
   sectionsLink: {
@@ -35,7 +35,7 @@ const Section = ({
       variables: { id: sectionBySlug.id },
       refetchQueries: [
         {
-          query: SectionsQuery
+          query: TopLevelSectionsQuery
         }
       ]
     })

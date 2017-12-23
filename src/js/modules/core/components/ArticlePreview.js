@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { Link } from "react-router-dom";
-import { ArticlesQuery } from "../queries";
+import { AllArticlesQuery } from "../queries";
 
 const DeleteArticleMutation = gql`
   mutation DeleteArticleMutation($id: ID!) {
@@ -40,7 +40,7 @@ class ArticlePreview extends Component {
       variables: { id: article.id },
       refetchQueries: [
         {
-          query: ArticlesQuery
+          query: AllArticlesQuery
         }
       ]
     })
