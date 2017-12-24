@@ -12,12 +12,14 @@ const styles = {
     }
   },
   items: {
-    backgroundColor: "lightgray",
+    backgroundColor: "whitesmoke",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     padding: "10px",
-    color: "black"
+    color: "black",
+    position: "absolute",
+    boxShadow: "0px 8px 16px rgba(0,0,0,0.2)"
   }
 };
 
