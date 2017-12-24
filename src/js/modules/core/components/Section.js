@@ -6,8 +6,8 @@ import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import ArticlePreview from "./ArticlePreview";
 import injectSheet from "react-jss";
-import { DeleteSection } from '../mutations'
-import { SectionQuery, TopLevelSectionsQuery } from '../queries'
+import { DeleteSection } from "../mutations";
+import { SectionQuery, TopLevelSectionsQuery } from "../queries";
 
 const styles = {
   sectionsLink: {
@@ -76,7 +76,9 @@ const Section = ({
         )}
       </ul>
       <div>
-        {sectionBySlug.articles.map(article => <ArticlePreview article={article} />)}
+        {sectionBySlug.articles.map(article =>
+          <ArticlePreview key={article.id} article={article} />
+        )}
       </div>
     </div>
   );

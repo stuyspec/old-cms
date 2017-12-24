@@ -1,20 +1,17 @@
 import React from "react";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import {
   ArticleBySlugQuery,
-  ArticleByIDQuery
-} from '../queries'
+  ArticleByIDQuery,
+  AllSectionsQuery
+} from "../queries";
 import ArticleForm from "./ArticleForm";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { UpdateArticle } from "../mutations";
 
-const EditArticlePage = ({
-  mutate,
-  data: { loading, articleBySlug },
-  push
-}) => {
+const EditArticlePage = ({ mutate, article, sections, push }) => {
   const handleSubmit = values => {
     const contributors = values.contributors.map(
       contributor => contributor.value
@@ -30,35 +27,47 @@ const EditArticlePage = ({
       refetchQueries: [
         {
           query: ArticleByIDQuery,
-          variables: { id: articleBySlug.id }
+          variables: { id: article.articleBySlug.id }
         }
       ]
     })
-    .then(() => {
-      push("/articles");
-    })
-    .catch(err => {
-      console.error(err);
-    });
+      .then(() => {
+        push("/articles");
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
-  if (loading) {
+  if (sections.loading || article.loading) {
     return <div> Loading... </div>;
   }
-  const contributors = articleBySlug.contributors.map(user => ({
+  const contributors = article.articleBySlug.contributors.map(user => ({
     value: parseInt(user.id),
     label: user.email
   }));
-  const article = {
-    ...articleBySlug,
+
+  const articleWithContributors = {
+    ...article.articleBySlug,
     contributors
   };
-  return <ArticleForm initialValues={article} onSubmit={handleSubmit} />;
+  return (
+    <ArticleForm
+      initialValues={articleWithContributors}
+      onSubmit={handleSubmit}
+      sections={sections.allSections}
+    />
+  );
 };
 const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
-const ConnectedEditArticlePage = connect(null, mapDispatchToProps)(
-  graphql(UpdateArticle)(EditArticlePage)
-);
 
-export default graphql(ArticleBySlugQuery, {
-  options: ({ match }) => ({ variables: { slug: match.params.slug } })
-})(ConnectedEditArticlePage);
+export default compose(
+  graphql(ArticleBySlugQuery, {
+    options: ({ match }) => ({ variables: { slug: match.params.slug } }),
+    name: "article"
+  }),
+  graphql(AllSectionsQuery, {
+    name: "sections"
+  }),
+  connect(null, mapDispatchToProps),
+  graphql(UpdateArticle)
+)(EditArticlePage);
