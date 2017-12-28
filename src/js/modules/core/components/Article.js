@@ -55,7 +55,7 @@ const Article = ({ article, classes, mutate, push }) => {
         )}
       </h3>
       <div>
-        {article.media.medium_attachment_url != null &&
+        {article.media.medium_attachment_url &&
         <img src={article.media.medium_attachment_url} />
         }
       </div>
