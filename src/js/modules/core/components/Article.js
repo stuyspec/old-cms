@@ -59,6 +59,7 @@ const Article = ({ article, classes, mutate, push }) => {
         <img src={article.media.medium_attachment_url} />
         }
       </div>
+      <div
         className={classes.content}
         dangerouslySetInnerHTML={{ __html: article.content }}
       />
