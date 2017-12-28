@@ -34,6 +34,7 @@ const styles = {
     display: "flex",
     flexDirection: "column"
   },
+
   submit: {
     maxWidth: "80px",
     padding: "8px",

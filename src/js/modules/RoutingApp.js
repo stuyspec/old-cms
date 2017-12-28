@@ -42,8 +42,8 @@ class RoutingApp extends Component {
                   component={EditArticlePage}
                 />
                 <Route path="/articles/:slug" component={ArticlePage} />
-                <Route exact path="/sections" component={SectionPage} />
-                <Route path="/sections/new" component={CreateSectionPage} />
+                <Route exact path="/sections/new" component={CreateSectionPage} />
+                <Route path="/sections" component={SectionPage} />
                 <Route exact path="/sign_up" component={SignUpPage} />
               </Switch>
             </MainApp>
