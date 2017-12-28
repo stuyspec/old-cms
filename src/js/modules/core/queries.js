@@ -77,6 +77,9 @@ query ArticleBySlugQuery($slug: String!) {
       name
     }
     summary
+    media {
+      medium_attachment_url
+    }
     content
   }
 }

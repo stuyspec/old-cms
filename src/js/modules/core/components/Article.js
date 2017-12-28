@@ -54,8 +54,11 @@ const Article = ({ article, classes, mutate, push }) => {
           </Link>
         )}
       </h3>
-
-      <div
+      <div>
+        {article.media.medium_attachment_url != null &&
+        <img src={article.media.medium_attachment_url} />
+        }
+      </div>
         className={classes.content}
         dangerouslySetInnerHTML={{ __html: article.content }}
       />
