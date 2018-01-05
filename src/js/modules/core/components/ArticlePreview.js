@@ -7,6 +7,7 @@ import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { Link } from "react-router-dom";
 import { AllArticlesQuery } from "../queries";
+import Contributors from './Contributors'
 
 const DeleteArticleMutation = gql`
   mutation DeleteArticleMutation($id: ID!) {
@@ -67,7 +68,7 @@ class ArticlePreview extends Component {
             {" "}{article.title}{" "}
           </h2>
         </Link>
-
+        <Contributors contributors={article.contributors} />
         <div className={classes.content}>
           {isExpanded
             ? <div dangerouslySetInnerHTML={{ __html: article.content }} />

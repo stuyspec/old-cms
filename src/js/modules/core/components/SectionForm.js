@@ -4,6 +4,7 @@ import { graphql, compose } from "react-apollo";
 import { Field, reduxForm } from "redux-form";
 import injectSheet from "react-jss";
 import Input from "./Input";
+import Loading from './Loading'
 
 const styles = {
   parent: {
@@ -44,7 +45,7 @@ const SectionForm = ({
   handleSubmit
 }) => {
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   return (
     <div className={classes.sectionForm}>

@@ -3,10 +3,11 @@ import { gql } from "apollo-client-preset";
 import { graphql } from "react-apollo";
 import { Link } from "react-router-dom";
 import { TopLevelSectionsQuery } from '../queries'
+import Loading from './Loading'
 
 const SectionsList = ({ data: { loading, topLevelSections } }) => {
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   return (
     <div>

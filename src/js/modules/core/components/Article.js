@@ -7,10 +7,16 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { Link } from 'react-router-dom'
+import Contributors from './Contributors'
 
 const styles = {
   content: {
     maxWidth: "500px"
+  },
+  featuredMedia: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
   }
 };
 
@@ -48,15 +54,11 @@ const Article = ({ article, classes, mutate, push }) => {
         {" "}{article.section.name}{" "}
       </h2>
       <h3>
-        {article.contributors.map(user =>
-          <Link to={`/users/${user.slug}`} key={user.id}>
-            {" "}{user.first_name} {user.last_name}{" "}
-          </Link>
-        )}
+        <Contributors contributors={article.contributors}/>
       </h3>
-      <div>
-        {article.media[0].medium_attachment_url &&
-        <img src={article.media[0].medium_attachment_url} />
+      <div className={classes.featuredMedia}>
+        {article.featured_media &&
+        <img src={article.featured_media.medium_attachment_url} />
         }
       </div>
       <div

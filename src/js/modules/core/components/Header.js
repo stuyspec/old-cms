@@ -18,7 +18,13 @@ const styles = {
   },
   masthead: {
     color: "black"
-  }
+  },
+  headerLink: {
+    color: "black",
+    "&:hover": {
+      textDecoration: "underline"
+    }
+  },
 };
 
 const Header = ({ classes }) => {
@@ -52,6 +58,11 @@ const Header = ({ classes }) => {
             </Link>
           </div>
         </Dropdown>
+        <div className={classes.headerLink}>
+          <Link to="/users/sign_in">
+            {" "}<h2> Sign In </h2>
+          </Link>
+        </div>
       </div>
     </div>
   );

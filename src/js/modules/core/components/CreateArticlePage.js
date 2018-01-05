@@ -6,10 +6,11 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { AllSectionsQuery } from "../queries";
+import Loading from './Loading'
 
 const CreateArticlePage = ({ push, mutate, data: { loading, allSections } }) => {
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   const handleSubmit = values => {
     const contributors = values.contributors.map(
@@ -40,7 +41,8 @@ const CreateArticlePage = ({ push, mutate, data: { loading, allSections } }) => 
     />
   );
 };
-mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
+
+const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
 export default compose(
   graphql(AllSectionsQuery),
   graphql(CreateArticle),

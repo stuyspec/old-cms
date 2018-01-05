@@ -16,6 +16,12 @@ export const SectionQuery = gql`
         content
         slug
         title
+        contributors {
+          id
+          first_name
+          last_name
+          slug
+        }
       }
       parent_section {
         slug
@@ -51,6 +57,12 @@ export const AllArticlesQuery = gql`
       content
       slug
       title
+      contributors {
+        id
+        first_name
+        last_name
+        slug
+      }
       section {
         id
         name
@@ -77,7 +89,7 @@ query ArticleBySlugQuery($slug: String!) {
       name
     }
     summary
-    media {
+    featured_media {
       medium_attachment_url
     }
     content
@@ -128,6 +140,29 @@ query AllUsersQuery {
   allUsers {
     id
     email
+  }
+}
+`
+export const UserBySlugQuery = gql`
+query UserBySlugQuery($slug: String!) {
+  userBySlug(slug: $slug) {
+    id
+    email
+    first_name
+    last_name
+    articles {
+      id
+      summary
+      content
+      slug
+      title
+      contributors {
+        id
+        first_name
+        last_name
+        slug
+      }
+    }
   }
 }
 `

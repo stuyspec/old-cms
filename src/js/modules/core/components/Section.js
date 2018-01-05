@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import ArticlePreview from "./ArticlePreview";
 import injectSheet from "react-jss";
 import { DeleteSection } from "../mutations";
 import { SectionQuery, TopLevelSectionsQuery } from "../queries";
+import Loading from "./Loading";
 
 const styles = {
   sectionsLink: {
@@ -47,7 +48,7 @@ const Section = ({
       });
   };
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   return (
     <div>
@@ -92,10 +93,11 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators({ push }, dispatch);
 };
 
-const StyledSection = injectSheet(styles)(Section);
-
-export default graphql(DeleteSection)(
+export default compose(
+  graphql(DeleteSection),
   graphql(SectionQuery, {
     options: ({ slug }) => ({ variables: { slug } })
-  })(connect(mapStateToProps, mapDispatchToProps)(StyledSection))
-);
+  }),
+  injectSheet(styles),
+  connect(mapStateToProps, mapDispatchToProps)
+)(Section);

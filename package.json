@@ -1,8 +1,8 @@
 {
-  "name": "awesome-react-app",
-  "displayName": "awesome-react-app",
+  "name": "content-management-system",
+  "displayName": "content-management-system",
   "version": "0.0.1",
-  "description": "Time to get to making stuff!",
+  "description": "Content Management for StuySpec",
   "main": "app.js",
   "scripts": {
     "start": "gulp build && node app",
@@ -60,6 +60,9 @@
   },
   "dependencies": {
     "apollo-client-preset": "^1.0.5",
+    "apollo-link": "^1.0.7",
+    "apollo-link-http": "latest",
+    "axios": "^0.17.1",
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
     "connected-react-router": "^4.3.0",

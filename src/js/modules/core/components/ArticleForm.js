@@ -6,6 +6,7 @@ import ContributorsInput from "./ContributorsInput";
 import { AllUsersQuery } from "../queries";
 import { graphql, compose } from "react-apollo";
 import ContentPreview from "./ContentPreview";
+import Loading from './Loading'
 
 const styles = {
   contributors: {
@@ -66,7 +67,7 @@ const ArticleForm = ({
   sections
 }) => {
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   const users = allUsers.map(user => ({
     value: parseInt(user.id),

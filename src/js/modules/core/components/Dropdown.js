@@ -46,7 +46,7 @@ class Dropdown extends Component {
           </h2>
         </a>
         {isOpen &&
-          <div className={classes.items}>
+          <div className={classes.items} onClick={this.handleClick}>
             {children}
           </div>}
       </div>

@@ -37,3 +37,10 @@
     font-weight: normal;
     font-style: normal;
 }
+
+@font-face {
+    font-family: "Old English Text MT";
+    src: url('/fonts/OldEnglishTextMT.ttf') format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}

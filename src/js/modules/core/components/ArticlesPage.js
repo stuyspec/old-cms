@@ -6,10 +6,11 @@ import SearchForm from "./SearchForm";
 import { push } from "react-router-redux";
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux'
+import Loading from './Loading'
 
 const ArticlesPage = ({ push, data: { loading, allArticles } }) => {
   if (loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   const handleSearch = values => {
     push(`/search/${values.query}`);

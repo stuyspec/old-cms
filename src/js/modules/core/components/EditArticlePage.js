@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { UpdateArticle } from "../mutations";
+import Loading from './Loading'
 
 const EditArticlePage = ({ mutate, article, sections, push }) => {
   const handleSubmit = values => {
@@ -39,7 +40,7 @@ const EditArticlePage = ({ mutate, article, sections, push }) => {
       });
   };
   if (sections.loading || article.loading) {
-    return <div> Loading... </div>;
+    return <Loading />;
   }
   const contributors = article.articleBySlug.contributors.map(user => ({
     value: parseInt(user.id),
