@@ -3,18 +3,25 @@ import injectSheet from "react-jss";
 import connect from "react-redux/lib/connect/connect";
 
 import { refreshWindowDimensions } from "./../actions";
-import { withRouter } from 'react-router-dom'
-import Header from './Header'
+import { withRouter } from "react-router-dom";
+import Header from "./Header";
 
 const styles = {
-    appContainer: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-      padding: "50px"
-    }
-}
+  appContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    padding: "50px",
+    backgroundColor: "maroon"
+  },
+  mainContent: {
+    backgroundColor: "white",
+    borderRadius: "10px",
+    margin: "10px",
+    padding: "20px",
+  }
+};
 class MainApp extends PureComponent {
   onResizeWindow = () => {
     this.props.onResizeWindow();
@@ -31,7 +38,9 @@ class MainApp extends PureComponent {
     return (
       <div className={classes.appContainer}>
         <Header />
-        { this.props.children }
+        <div className={classes.mainContent}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

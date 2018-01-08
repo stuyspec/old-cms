@@ -126,6 +126,12 @@ query SearchArticlesQuery($query: String!) {
       content
       slug
       title
+      contributors {
+        id
+        email
+        first_name
+        last_name
+      }
       section {
         id
         name

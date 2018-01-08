@@ -10,9 +10,25 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
 import { UpdateArticle } from "../mutations";
-import Loading from './Loading'
+import Loading from "./Loading";
+import injectSheet from "react-jss";
 
-const EditArticlePage = ({ mutate, article, sections, push }) => {
+const styles = {
+  error: {
+    color: "red",
+    display: "flex",
+    fontSize: "1.1em",
+    lineHeight: "1.3em",
+    alignItems: "center",
+    flexDirection: "column"
+  }
+};
+const EditArticlePage = ({
+  mutate,
+  article,
+  sections,
+  push,
+}) => {
   const handleSubmit = values => {
     const contributors = values.contributors.map(
       contributor => contributor.value
@@ -21,8 +37,8 @@ const EditArticlePage = ({ mutate, article, sections, push }) => {
     mutate({
       variables: {
         ...values,
-        section_id: parseInt(values.section),
-        id: articleBySlug.id,
+        section_id: parseInt(values.section.id),
+        id: article.articleBySlug.id,
         contributors
       },
       refetchQueries: [
@@ -70,5 +86,6 @@ export default compose(
     name: "sections"
   }),
   connect(null, mapDispatchToProps),
-  graphql(UpdateArticle)
+  graphql(UpdateArticle),
+  injectSheet(styles)
 )(EditArticlePage);

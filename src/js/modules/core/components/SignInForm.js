@@ -10,7 +10,7 @@ const validate = formValues => {
     errors.email = "Required";
   }
   if (!EMAIL_REGEX.test(formValues.email)) {
-    errors.email = "Invalid email"
+    errors.email = "Invalid email";
   }
   if (!formValues.password) {
     errors.password = "Required";
@@ -20,18 +20,18 @@ const validate = formValues => {
 
 const SignInForm = ({ handleSubmit, submitting }) => {
   return (
-    <form onSubmit={handleSubmit}>
-      <Field component={Input} name="email" label="Email" />
-      <Field
-        component={Input}
-        type="password"
-        name="password"
-        label="Password"
-      />
-      <button type="submit" disabled={submitting}>
-        Submit
-      </button>
-    </form>
+      <form onSubmit={handleSubmit}>
+        <Field component={Input} name="email" label="Email" />
+        <Field
+          component={Input}
+          type="password"
+          name="password"
+          label="Password"
+        />
+        <button type="submit" disabled={submitting}>
+          Submit
+        </button>
+      </form>
   );
 };
 

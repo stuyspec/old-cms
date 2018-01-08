@@ -1,2 +1,4 @@
 export const SET_LANGUAGE = 'core/SET_LANGUAGE';
 export const REFRESH_WINDOW_DIMENSIONS = 'core/REFRESH_WINDOW_DIMENSIONS';
+export const CREATE_SESSION = 'core/CREATE_SESSION';
+export const DELETE_SESSION = 'core/DELETE_SESSION';

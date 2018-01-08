@@ -1,10 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import injectSheet from "react-jss";
-import { Component } from "react/lib/ReactBaseClasses";
+import { compose } from "react-apollo";
 import Dropdown from "./Dropdown";
+import { connect } from "react-redux";
 
 const styles = {
+  header: {
+    backgroundColor: "white",
+    padding: "20px",
+    borderRadius: "10px",
+    zIndex: "100",
+  },
   links: {
     display: "flex",
     flexDirection: "row",
@@ -14,24 +21,24 @@ const styles = {
     flexWrap: "wrap"
   },
   link: {
-    color: "black",
   },
   masthead: {
-    color: "black"
+    fontSize: "1.5em",
+    fontFamily: "Old English Text MT",
   },
   headerLink: {
     color: "black",
     "&:hover": {
       textDecoration: "underline"
     }
-  },
+  }
 };
 
-const Header = ({ classes }) => {
+const Header = ({ classes, session }) => {
   return (
-    <div>
+    <div className={classes.header}>
       <Link className={classes.masthead} to="/">
-        {" "}<h1> Stuyvesant Spectator CMS </h1>{" "}
+        {" "}<h1> The Stuyvesant Spectator </h1>{" "}
       </Link>
       <div className={classes.links}>
         <Dropdown title="Create">
@@ -58,14 +65,23 @@ const Header = ({ classes }) => {
             </Link>
           </div>
         </Dropdown>
-        <div className={classes.headerLink}>
-          <Link to="/users/sign_in">
-            {" "}<h2> Sign In </h2>
-          </Link>
-        </div>
+        {session
+          ? <div className={classes.headerLink}>
+              <Link to="/users/sign_out">
+                {" "}<h2> Sign Out </h2>
+              </Link>
+            </div>
+          : <div className={classes.headerLink}>
+              <Link to="/users/sign_in">
+                {" "}<h2> Sign In </h2>
+              </Link>
+            </div>}
       </div>
     </div>
   );
 };
 
-export default injectSheet(styles)(Header);
+const mapStateToProps = state => ({
+  session: state.core.session
+});
+export default compose(injectSheet(styles), connect(mapStateToProps))(Header);
