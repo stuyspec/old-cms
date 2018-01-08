@@ -6,7 +6,7 @@ const Contributors = ({ contributors }) => {
     <div>
     {contributors.map(user =>
       <Link to={`/users/${user.slug}`} key={user.id}>
-        {" "}{user.first_name} {user.last_name}{" "}
+        <i> {user.first_name} {user.last_name} </i>
       </Link>
     )}
     </div>

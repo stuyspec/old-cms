@@ -22,8 +22,14 @@ const styles = {
   content: {
     maxWidth: "500px"
   },
+  contributors: {
+    padding: "5px"
+  },
   expand: {
     color: "blue"
+  },
+  title: {
+    maxWidth: "600px"
   }
 };
 
@@ -62,13 +68,15 @@ class ArticlePreview extends Component {
     const { classes, article } = this.props;
     const { isExpanded } = this.state;
     return (
-      <span>
+      <div>
         <Link to={`/articles/${article.slug}`}>
-          <h2>
+          <h2 className={classes.title}>
             {" "}{article.title}{" "}
           </h2>
         </Link>
-        <Contributors contributors={article.contributors} />
+        <div className={classes.contributors}>
+          <Contributors contributors={article.contributors} />
+        </div>
         <div className={classes.content}>
           {isExpanded
             ? <div dangerouslySetInnerHTML={{ __html: article.content }} />
@@ -81,7 +89,7 @@ class ArticlePreview extends Component {
         <Link to={`/articles/${article.slug}/edit`}>
           <button>Edit</button>
         </Link>
-      </span>
+      </div>
     );
   }
 }
