@@ -33,16 +33,19 @@ class RoutingApp extends Component {
               render={() =>
                 session
                   ? <CreateArticlePage />
-                  : <Redirect to="/users/sign_in" />}
+                  : <Redirect
+                      to={{
+                        pathname: "/users/sign_in",
+                        state: { error: "Must be logged in" }
+                      }}
+                    />}
             />
             <Route
               path="/articles/:slug/edit"
               render={({ match }) =>
                 session
                   ? <EditArticlePage />
-                  : <Redirect
-                      to="/users/sign_in"
-                    />}
+                  : <Redirect to="/users/sign_in" />}
             />
             <Route path="/articles/:slug" component={ArticlePage} />
             <Route exact path="/sections/new" component={CreateSectionPage} />

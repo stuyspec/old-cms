@@ -12,7 +12,7 @@ const styles = {
     backgroundColor: "white",
     padding: "20px",
     borderRadius: "10px",
-    zIndex: "100",
+    zIndex: "100"
   },
   links: {
     display: "flex",
@@ -21,8 +21,6 @@ const styles = {
     justifyContent: "space-between",
     flex: "1 0 auto",
     flexWrap: "wrap"
-  },
-  link: {
   },
   masthead: {
     fontSize: "1.5em",

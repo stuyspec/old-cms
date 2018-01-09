@@ -8,12 +8,13 @@ import Header from "./Header";
 
 const styles = {
   appContainer: {
+    fontFamily: "Merriweather, serif",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     padding: "50px",
-    backgroundColor: "maroon"
+    backgroundColor: "lightgray"
   },
   mainContent: {
     boxShadow:
@@ -21,9 +22,10 @@ const styles = {
     backgroundColor: "white",
     borderRadius: "10px",
     margin: "25px",
-    padding: "20px"
+    padding: "20px",
   }
 };
+
 class MainApp extends PureComponent {
   onResizeWindow = () => {
     this.props.onResizeWindow();
