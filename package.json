@@ -67,6 +67,7 @@
     "cli-table": "^0.3.1",
     "colors": "^1.1.2",
     "connected-react-router": "^4.3.0",
+    "draft-js": "latest",
     "ejs": "^2.5.7",
     "envify": "^4.1.0",
     "express": "^4.16.2",
@@ -77,8 +78,7 @@
     "react-icon-base": "^2.1.2",
     "react-select": "^1.1.0",
     "redux-form": "^7.2.0",
-    "spec-content-editor": "^0.1.0",
-    "yargs": "^8.0.2",
-    "draft-js": "latest"
+    "spec-content-editor": "^0.1.2",
+    "yargs": "^8.0.2"
   }
 }
