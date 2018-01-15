@@ -17,8 +17,17 @@ import HomePage from "./HomePage";
 import SignInPage from "./core/components/SignInPage";
 import SignOutPage from "./core/components/SignOutPage";
 import { connect } from "react-redux";
+import { createSession } from "./core/actions";
+import { bindActionCreators } from 'redux'
 
 class RoutingApp extends Component {
+
+  componentDidMount() {
+    if (localStorage.getItem("uid")) {
+      this.props.createSession(localStorage.getItem("uid"));
+    }
+  }
+
   render() {
     const { session } = this.props;
     return (
@@ -31,21 +40,20 @@ class RoutingApp extends Component {
               exact
               path="/articles/new"
               render={() =>
-                session
-                  ? <CreateArticlePage />
-                  : <Redirect
-                      to={{
-                        pathname: "/users/sign_in",
-                        state: { error: "Must be logged in" }
-                      }}
-                    />}
+                session ? (
+                  <CreateArticlePage />
+                ) : (
+                  <Redirect
+                    to={"/users/sign_in"}
+                  />
+                )
+              }
             />
             <Route
               path="/articles/:slug/edit"
               render={({ match }) =>
-                session
-                  ? <EditArticlePage />
-                  : <Redirect to="/users/sign_in" />}
+                session ? <EditArticlePage /> : <Redirect to="/users/sign_in" />
+              }
             />
             <Route path="/articles/:slug" component={ArticlePage} />
             <Route exact path="/sections/new" component={CreateSectionPage} />
@@ -65,4 +73,8 @@ class RoutingApp extends Component {
 const mapStateToProps = state => ({
   session: state.core.session
 });
-export default connect(mapStateToProps)(RoutingApp);
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ createSession }, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(RoutingApp);

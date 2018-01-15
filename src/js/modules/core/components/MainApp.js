@@ -5,22 +5,22 @@ import connect from "react-redux/lib/connect/connect";
 import { refreshWindowDimensions } from "./../actions";
 import { withRouter } from "react-router-dom";
 import Header from "./Header";
+import { createSession } from '../actions'
 
 const styles = {
   appContainer: {
+    backgroundColor: "#fbfbfb",
     fontFamily: "Merriweather, serif",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     padding: "50px",
-    backgroundColor: "lightgray"
   },
   mainContent: {
+    backgroundColor: "white",
     boxShadow:
       "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-    backgroundColor: "white",
-    borderRadius: "10px",
     margin: "25px",
     padding: "20px",
   }

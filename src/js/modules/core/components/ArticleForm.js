@@ -5,8 +5,8 @@ import injectSheet from "react-jss";
 import ContributorsInput from "./ContributorsInput";
 import { AllUsersQuery } from "../queries";
 import { graphql, compose } from "react-apollo";
-import ContentPreview from "./ContentPreview";
-import Loading from './Loading'
+import Loading from "./Loading";
+import { ContentEditor } from "spec-content-editor";
 
 const styles = {
   contributors: {
@@ -16,6 +16,7 @@ const styles = {
   content: {
     padding: "5px",
     margin: "20px",
+    minWidth: "500px",
     fontSize: "1.05em"
   },
   section: {
@@ -23,19 +24,20 @@ const styles = {
     "-webkit-appearance": "menulist-button",
     height: "50px",
     fontSize: "1.05em",
-    maxWidth: "500px"
+    maxWidth: "300px"
   },
   articleForm: {
+    display: "block",
     width: "100%",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-start"
+    margin: "0"
   },
   fields: {
     display: "flex",
     flexDirection: "column"
   },
-
+  title: {
+    maxWidth: "300px"
+  },
   submit: {
     maxWidth: "80px",
     padding: "8px",
@@ -61,6 +63,8 @@ const validate = formValues => {
 const ArticleForm = ({
   classes,
   data: { loading, allUsers },
+  editorState,
+  handleEditorStateChange,
   handleSubmit,
   submitting,
   status,
@@ -78,19 +82,24 @@ const ArticleForm = ({
     <div className={classes.articleForm}>
       <form onSubmit={handleSubmit}>
         <div className={classes.fields}>
-          <Field name="title" type="text" label="Title" component={Input} />
+          <div className={classes.title}>
+            <Field name="title" type="text" label="Title" component={Input} />
+          </div>
+          <div className={classes.sections}>
           <Field
             className={classes.section}
             name="section"
             label="Section"
             component="select"
           >
-            {sections.map(section =>
+            {sections.map(section => (
               <option value={section.id} key={section.id}>
-                {" "}{section.name}{" "}
+                {" "}
+                {section.name}{" "}
               </option>
-            )}
+            ))}
           </Field>
+          </div>
           <Field
             className={classes.contributors}
             multi={true}
@@ -99,31 +108,24 @@ const ArticleForm = ({
             component={ContributorsInput}
             options={users}
           />
-          <Field
-            className={classes.content}
-            name="content"
-            type="text"
-            component="textarea"
-            rows="30"
-            cols="80"
-          />
-          <br />
+          <div className={classes.content}>
+            <ContentEditor
+              onChange={handleEditorStateChange}
+              editorState={editorState}
+            />
+          </div>
           <button
             className={classes.submit}
             type="submit"
             disabled={submitting}
           >
-            {" "}Submit{" "}
+            {" "}
+            Submit{" "}
           </button>
-          <ContentPreview />
         </div>
       </form>
       {status &&
-        status.errors.map((error, index) =>
-          <p key={index}>
-            {" "}{error}{" "}
-          </p>
-        )}
+        status.errors.map((error, index) => <p key={index}> {error} </p>)}
     </div>
   );
 };
@@ -133,6 +135,7 @@ export default compose(
   injectSheet(styles),
   reduxForm({
     form: "article",
+    immutableProps: ["editorState"],
     validate
   })
 )(ArticleForm);

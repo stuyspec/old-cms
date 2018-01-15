@@ -9,10 +9,9 @@ const styles = {
   header: {
     boxShadow:
       "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-    backgroundColor: "white",
     padding: "20px",
-    borderRadius: "10px",
-    zIndex: "100"
+    zIndex: "100",
+    backgroundColor: "white"
   },
   links: {
     display: "flex",
@@ -20,7 +19,8 @@ const styles = {
     alignItems: "baseline",
     justifyContent: "space-between",
     flex: "1 0 auto",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    fontFamily: "Source Serif Pro"
   },
   masthead: {
     fontSize: "1.5em",

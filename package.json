@@ -77,6 +77,8 @@
     "react-icon-base": "^2.1.2",
     "react-select": "^1.1.0",
     "redux-form": "^7.2.0",
-    "yargs": "^8.0.2"
+    "spec-content-editor": "^0.1.0",
+    "yargs": "^8.0.2",
+    "draft-js": "latest"
   }
 }
