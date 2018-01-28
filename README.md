@@ -34,3 +34,5 @@ The [Rails console](http://guides.rubyonrails.org/command_line.html#rails-consol
 > u.security_level = 1
 > u.save
 ```
+
+Accessing `rails console` in a locally hosted API is trivial, but to use it with our production database requires more [instruction](https://github.com/stuyspec/stuy-spec-api#using-elastic-beanstalk).
