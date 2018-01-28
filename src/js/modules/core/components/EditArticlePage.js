@@ -9,6 +9,7 @@ import ArticleForm from "./ArticleForm";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { push } from "react-router-redux";
+import { withRouter } from "react-router-dom";
 import { UpdateArticle } from "../mutations";
 import Loading from "./Loading";
 import injectSheet from "react-jss";
@@ -78,6 +79,7 @@ const EditArticlePage = ({
 const mapDispatchToProps = dispatch => bindActionCreators({ push }, dispatch);
 
 export default compose(
+  withRouter,
   graphql(ArticleBySlugQuery, {
     options: ({ match }) => ({ variables: { slug: match.params.slug } }),
     name: "article"
