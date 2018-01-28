@@ -2,7 +2,7 @@
 Content Management System. This time done right.
 
 ## Getting started
-_Requirement: [Git](https://help.github.com/articles/set-up-git/)_
+
 1. Clone the repo (default branch is `develop`): 
 ```
 git clone https://github.com/stuyspec/cms
@@ -19,3 +19,9 @@ npm install
 ```
 gulp
 ```
+
+## Running the app
+
+To set up the development data server, follow the instructions on our the README of our [API](https://github.com/stuyspec/stuy-spec-api).
+
+
