@@ -30,7 +30,7 @@ To be an **admin** in the database is to have a `security_level` of greater than
 
 The [Rails console](http://guides.rubyonrails.org/command_line.html#rails-console) lets you interact with the Rails API from the command line with Ruby. For instance:
 ```
-> a = Article.find_by(title: 'The Original Title')
-> a.title = 'New Title'
-> a.save
+> u = User.find_by(first_name: 'Jason')
+> u.security_level = 1
+> u.save
 ```
