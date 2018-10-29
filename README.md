@@ -31,8 +31,7 @@ To be an **admin** in the database is to have a `security_level` of greater than
 The [Rails console](http://guides.rubyonrails.org/command_line.html#rails-console) lets you interact with the Rails API from the command line with Ruby. For instance:
 ```
 > u = User.find_by(first_name: 'Jason')
-> u.security_level = 1
-> u.save
+> u.update(security_level: 1)
 ```
 
 Accessing `rails console` in a locally hosted API is trivial, but to use it with our production database requires more [instruction](https://github.com/stuyspec/stuy-spec-api#using-elastic-beanstalk).
