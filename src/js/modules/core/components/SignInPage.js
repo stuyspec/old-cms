@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SignInForm from "./SignInForm";
 import axios from "axios";
 import { SPEC_API_URL } from "../constants";
@@ -23,6 +24,9 @@ const SignInPage = ({ createSession, push }) => {
   return (
     <div>
       <SignInForm onSubmit={handleSubmit} />
+      <div style={{paddingTop: "20px"}}>
+        {" "}<Link to="/users/sign_up"> Don't have an account? Sign up! </Link>
+      </div>
     </div>
   );
 };

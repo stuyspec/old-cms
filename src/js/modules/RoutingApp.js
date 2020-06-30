@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Route from "react-router-dom/Route";
 import appHistory from "tools/appHistory";
 import MainApp from "./core/components/MainApp";
-import SignUpPage from "./core/components/SignUpPage";
+import SignUpForm from "./core/components/SignUpForm";
 import ConnectedRouter from "react-router-redux/ConnectedRouter";
 import { Redirect, Switch } from "react-router-dom";
 import SectionPage from "./core/components/SectionPage";
@@ -58,7 +58,7 @@ class RoutingApp extends Component {
             <Route path="/articles/:slug" component={ArticlePage} />
             <Route exact path="/sections/new" component={CreateSectionPage} />
             <Route path="/sections" component={SectionPage} />
-            <Route exact path="/users/sign_up" component={SignUpPage} />
+            <Route exact path="/users/sign_up" component={SignUpForm} />
             <Route exact path="/users/sign_in" component={SignInPage} />
             <Route exact path="/users/sign_out" component={SignOutPage} />
             <Route path="/users/:slug" component={UserPage} />
